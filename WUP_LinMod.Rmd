@@ -47,8 +47,6 @@ myData=mtcars
 ## Model 1 mpg ~ disp
 
 ### scatterplot
-
-
 ```{r}
 plot(mpg~disp,data=mtcars,pch=15)
 ```
@@ -56,34 +54,57 @@ plot(mpg~disp,data=mtcars,pch=15)
 The above scatterplot shows that as the disp increases, the mpg decreases.
 
 ### Numerical results
+```{r}
+cor(mpg~disp,data=mtcars)
+```
 
 
 ### Inferential  (Build model.1)
+```{r}
+model.1 <- lm(mpg~disp,data=mtcars)
+summary.lm(model.1)
+```
+For every 1 inch in disp, mpg goes down by 0.04.
+The P value is 
 
 #### Predict at target point
+```{r}
+newdata=data.frame(disp=183,hp=250)
+predict(model.1,newdata)
+```
 
 
 #### scatterplot with model fit
   
 
-## Model 2 SIM~GRIP
+## Model 2 mpg~hp
 
 ### Now add in scatterplot
-
+```{r}
+plot(mpg~hp,data=mtcars,pch=15)
+```
 
 ### Numerical results 
-
+```{r}
+cor(mpg~hp,data=mtcars)
+```
 
 ### Inferential  (Build model.2)
-  
+```{r}
+model.2 <- lm(mpg~hp,data=mtcars)
+summary.lm(model.2)
+```
 
 #### predict model.2 at target point
+```{r}
+predict(model.2,newdata)
+```
 
 #### now add the model fit to our plot for model.2
   
 
 
-## Model 3 SIM~ARM+GRIP
+## Model 3 mpg~disp+hp
 
 ### Numerical results (cor)
 
@@ -92,7 +113,7 @@ The above scatterplot shows that as the disp increases, the mpg decreases.
 ### Inferential  (Build 2-dimentional model.3)
 
 #### predict model.3 at target point
-  
+
 
 ## Comparing nested models ANOVA Test
 
