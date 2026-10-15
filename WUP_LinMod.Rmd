@@ -1,6 +1,6 @@
 ---
 title: "Linear Model with Prediction"
-author: "Dr. J"
+author: "Holden Katin-Bayer"
 date: "`r Sys.Date()`"
 output: html_document
 ---
@@ -8,9 +8,9 @@ output: html_document
 This project is an exploration of linear models. Models are estimated by linear regression.  The data set is from Motor Trend magazine.
 
 The assignment is based on estimation of 3 models:
-1. mpg as a function of cyl
+1. mpg as a function of wt
 2. mpg as a function of disp
-3  mpg as a function of both cyl and disp
+3  mpg as a function of both wt and disp
 
 Complete a linear model with data description, a model fit a, and a prediction of mpg based on weigth of 3.050 lbs, with a displacement of 122 cubic inches (this is 2.5 L).
 
@@ -37,7 +37,18 @@ head(mtcars)
 ## data summary
 ### graphical summary
 
+```{r}
+plot(mpg~wt,data=mtcars,   pch=15)
+grid()
+```
+
+The scatterplot shows a correlation between higher wt and lower mpg.
+
 ### numerical summary
+```{r}
+cor(mtcars$wt, mtcars$mpg)
+```
+
 
 ### model summary
 
@@ -45,22 +56,32 @@ head(mtcars)
 model1 <- lm(mpg ~ wt, data = mtcars)
 summary(model1)
 ```
+The equation we found is y=37.28-5.34*wt.
 ```{r}
 newData = data.frame(wt=3.050, disp=122)
 print(predict(model1, newData, interval = 'predict'))
 ```
-
 ### predicted mpg
+The predicted mpg is 21, when rounded up. The confidence interval will be between 15 and 27.
 
 # Model 2:
 
  mpg (miles per gallon) is the response (Y)
- wt (wt) is the predictor (X)
+ disp (displacement) is the predictor (X)
 
 ## data summary
 ### graphical summary
+```{r}
+plot(mpg~disp,data=mtcars,   pch=15)
+grid()
+```
+
+The scatterplot shows a correlation between lower mpg and higher disp.
 
 ### numerical summary
+```{r}
+cor(mtcars$disp, mtcars$mpg)
+```
 
 ### model summary
 
@@ -69,6 +90,11 @@ print(predict(model1, newData, interval = 'predict'))
 model2 <- lm(mpg ~ disp, data = mtcars)
 summary(model2)
 ```
+```{r}
+newData = data.frame(wt=3.050, disp=122)
+print(predict(model1, newData, interval = 'predict'))
+```
+
 ### predicted mpg 
 
 # Model 3 :
@@ -79,9 +105,15 @@ summary(model2)
 ## data summary
 ### graphical summary
 ```{r}
-plot(mpg ~ wt+disp, data = mtcars)
+plot(mpg ~ wt+disp, data = mtcars,    pch=15)
+grid()
 ```
+
+
+The two scatterplots display similar correlations between lower mpg and higher wt and disp.
+
 ### numerical summary
+There is no numerical summary for Model 3.
 
 ### model summary
 model3= lm(mpg ~ wt+disp, data = mtcars)
@@ -94,15 +126,16 @@ summary(model3)
  mpg (miles per gallon) is the response (Y)
  wt (wt) and displacement (disp) are the predictors (X's)
 
-## data summary
-
-### graphical summary
-```{r}
-plot(mpg ~ wt+disp, data=mtcars)
-```
-### numerical summary
-
 ### model summary
+```{r}
+model3 <- lm(mpg ~ wt+disp, data = mtcars)
+summary(model3)
+```
+
+```{r}
+newData = data.frame(wt=3.050, disp=122)
+print(predict(model1, newData, interval = 'predict'))
+```
 
 # anova: compare models 2 and 3
 
@@ -111,14 +144,19 @@ model3 <- lm(mpg ~ wt+disp, data = mtcars)
 model summary (coefficients, R², etc.)
 
 ### predicted mpg
-
 ```{r}
-summary(model3)
+print(predict(model1, newData, interval = 'predict'))
 ```
+
 
 ```{r}
 anova_result <- anova(model1, model3)
 print(anova_result)
 ```
+The F value is greater than .05, we fail to reject the null hypothesis if there was one.
+Adding the additional variable of displacement did not make it better.
 
 # Discussion and Conculsions
+
+Did displacement add any information to the model? No it did not.
+The model with displacement added to weight was functionally the same as a model with just weight.
