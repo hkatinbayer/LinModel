@@ -92,10 +92,11 @@ summary(model2)
 ```
 ```{r}
 newData = data.frame(wt=3.050, disp=122)
-print(predict(model1, newData, interval = 'predict'))
+print(predict(model2, newData, interval = 'predict'))
 ```
 
 ### predicted mpg 
+The predicted mpg is 25 when rounded up. The confidence interval wil be between 18 and 31.
 
 # Model 3 :
 
@@ -134,19 +135,16 @@ summary(model3)
 
 ```{r}
 newData = data.frame(wt=3.050, disp=122)
-print(predict(model1, newData, interval = 'predict'))
+print(predict(model3, newData, interval = 'predict'))
 ```
+### predicted mpg
+The predicted mpg is 23 when rounded up. The confidence interval is between 16 and 29.
 
 # anova: compare models 2 and 3
 
 model3 <- lm(mpg ~ wt+disp, data = mtcars)
 
 model summary (coefficients, R², etc.)
-
-### predicted mpg
-```{r}
-print(predict(model1, newData, interval = 'predict'))
-```
 
 
 ```{r}
